@@ -18,7 +18,7 @@ public class Categorie {
         this.articleVendus = articleVendus;
     }
 
-    public int getNoCategorie() {
+    public  int getNoCategorie() {
         return noCategorie;
     }
 
@@ -26,7 +26,7 @@ public class Categorie {
         this.noCategorie = noCategorie;
     }
 
-    public String getLibelle() {
+    public  String getLibelle() {
         return libelle;
     }
 
