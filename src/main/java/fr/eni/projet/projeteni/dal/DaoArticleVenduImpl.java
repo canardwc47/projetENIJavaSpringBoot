@@ -1,0 +1,75 @@
+package fr.eni.projet.projeteni.dal;
+
+import fr.eni.projet.projeteni.bo.ArticleVendu;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public class DaoArticleVenduImpl implements DaoArticleVendu {
+
+    static final String SELECT_ALL = "select * from ARTICLES_VENDUS";
+    static final String SELECT_BY_ID = "select * from ARTICLES_VENDUS where no_article=?";
+    static final String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie) VALUES (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie )";
+    static final String DELETE = "DELETE FROM ARTICLES_VENDUS where no_article=?";
+    static final String UPDATE = "UPDATE ARTICLES_VENDUS set nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?,prix_initial=?,prix_vente=?,no_utilisateur=?,no_categorie=? where no_article=?";
+
+    JdbcTemplate jdbcTemplate;
+    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    public DaoArticleVenduImpl(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
+
+    @Override
+    public List<ArticleVendu> read() {
+        return jdbcTemplate.query(SELECT_ALL, BeanPropertyRowMapper.newInstance(ArticleVendu.class));
+    }
+
+    @Override
+    public ArticleVendu read(int id) {
+        return jdbcTemplate.queryForObject(SELECT_BY_ID, BeanPropertyRowMapper.newInstance(ArticleVendu.class), id);
+    }
+
+    @Override
+    public int create(ArticleVendu articleVendu) {
+        var namedparameter = new MapSqlParameterSource();
+        namedparameter.addValue("nom_article", articleVendu.getNomArticle());
+        namedparameter.addValue("description", articleVendu.getDescription());
+        namedparameter.addValue("date_debut_encheres", articleVendu.getDateDebutEncheres());
+        namedparameter.addValue("date_fin_encheres", articleVendu.getDateFinEncheres());
+        namedparameter.addValue("prix_initial", articleVendu.getMiseAPrix() );
+        namedparameter.addValue("prix_vente", articleVendu.getPrixVente());
+        namedparameter.addValue("no_utilisateur", articleVendu.getVendeur().getNoUtilisateur());
+        namedparameter.addValue("no_categorie",articleVendu.getCategorie().getNoCategorie());
+
+        var keyHolder = new GeneratedKeyHolder();
+        namedParameterJdbcTemplate.update(INSERT, namedparameter, keyHolder);
+        return keyHolder.getKey().intValue();
+    }
+
+
+    @Override
+    public void update(ArticleVendu articleVendu) {
+        jdbcTemplate.update(UPDATE, articleVendu.getNomArticle(), articleVendu.getDescription(), articleVendu.getDateDebutEncheres(), articleVendu.getDateFinEncheres(), articleVendu.getMiseAPrix(), articleVendu.getPrixVente(), articleVendu.getVendeur().getNoUtilisateur(), articleVendu.getCategorie().getNoCategorie());
+    }
+
+
+
+    @Override
+    public void delete(ArticleVendu articleVendu) {
+        jdbcTemplate.update(DELETE, articleVendu.getNoArticle());
+    }
+
+    @Override
+    public void delete(int id) {
+        jdbcTemplate.update(DELETE, id);
+
+    }
+}
