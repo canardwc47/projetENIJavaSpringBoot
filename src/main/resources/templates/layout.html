@@ -1,0 +1,29 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org" lang="fr"
+      data-th-fragment="layout(title,content)">
+<head>
+    <meta charset="UTF-8">
+    <title data-th-replace="${title}"></title>
+    <!--   <link rel="stylesheet" data-th-href="@{/css/layout.css}">-->
+<!--    <link rel="stylesheet" data-th-href="@{/css/general.css}">-->
+<!--    <link rel="stylesheet" data-th-href="@{/css/demo-form.css}">-->
+<!--    <link rel="stylesheet" data-th-href="@{/css/demo-table.css}">-->
+<!--    <link rel="icon" data-th-href="@{/images/logoENI.png}" sizes="32x32">-->
+</head>
+<body>
+<!-- Navbar -->
+<header>
+    <nav>
+        <ul>
+            <li><a href="/encheres">Enchères</a></li>
+            <li><a href="">Vendre un article</a></li>
+            <li><a href="">Mon profil</a></li>
+            <li><a href="">Déconnexion</a></li>
+        </ul>
+    </nav>
+</header>
+<main data-th-replace="${content}">
+
+</main>
+</body>
+</html>
