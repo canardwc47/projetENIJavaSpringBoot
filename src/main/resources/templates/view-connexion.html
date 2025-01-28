@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>hello</title>
 </head>
 <body>
-
+    <main>
+        <form action="/view-connexion" method="POST" th:object="${login}" class="login">
+            <div class="container_login">
+                <div class="login_mdp_form">
+                    <div class="identifiants">
+                        <label for="identifiant" class="label_login">Identifiant</label>
+                        <input type="text" name="identifiant" id="identifiant" placeholder="Identifiant" required th:field="*{email}">
+                    </div>
+                    <div class="MDP">
+                        <label for="mdp" class="label_login">Mdp</label>
+                        <input type="password" name="mdp" id="mdp" placeholder="mdp" required th:field="*{motDePasse}">
+                    </div>
+                    <div class="btn_connection">
+                        <button type="submit" class="btn_login">Connexion</button>
+                        <div class="checked">
+                            <input type="checkbox" name="check" id="check">
+                            <label for="check"></label>
+                            <a href="/view-creation-compte">Créér un compte</a>
+                        </div>
+                    </div>
+               </div>
+            </div>
+        </form>
+    </main>
 </body>
 </html>
