@@ -4,20 +4,34 @@ import fr.eni.projet.projeteni.bll.UtilisateurService;
 import fr.eni.projet.projeteni.bo.Utilisateur;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @Controller
 @RequestMapping("/encheres")
 public class UserController {
-    // Injection du utilisateurService
-    private Utilisateur utilisateur ;
+
     private UtilisateurService utilisateurService;
 
     public UserController(UtilisateurService utilisateurService) {
         this.utilisateurService = utilisateurService;
     }
 
+    @GetMapping("/view-creation-compte")
+    public String creerunChat(Model model) {
+        model.addAttribute("creationCompte", new Utilisateur());
+        return "view-creation-compte";
+    }
+
+
+    @PostMapping("/view-creation-compte")
+    public String newChat(@ModelAttribute Utilisateur utilisateur) {
+        utilisateurService.addUtilisateur(utilisateur);
+        System.out.println(utilisateur);
+        return "view-connexion";
 
     @GetMapping("/profil")
     public String profil(@RequestParam(name = "email") String email, Model model) {
@@ -43,5 +57,6 @@ public class UserController {
         utilisateurService.updateUtilisateur(utilisateur);
 
         return "redirect:/encheres/profil?email="+ utilisateur.getEmail() ; // Redirige vers le profil mis à jour
+
     }
 }
