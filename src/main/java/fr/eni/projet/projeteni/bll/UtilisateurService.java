@@ -10,6 +10,8 @@ public interface UtilisateurService {
 
     List<Utilisateur> getAllUtilisateur();
 
+
+
     int addUtilisateur(Utilisateur utilisateur);
 
     void updateUtilisateur(Utilisateur utilisateur);
