@@ -1,6 +1,8 @@
 package fr.eni.projet.projeteni.controller;
 
 
+import fr.eni.projet.projeteni.bll.UtilisateurService;
+import fr.eni.projet.projeteni.bo.Utilisateur;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +15,9 @@ import java.util.List;
 @RequestMapping("/encheres")
 public class EncheresController {
 
+
     @GetMapping
-    public String afficherFormateurs(Model model) {
+    public String afficherUtilisateur(Model model) {
 
         return "view-accueil";
 
