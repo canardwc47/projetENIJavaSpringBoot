@@ -5,9 +5,11 @@ import fr.eni.projet.projeteni.dal.UtilisateurDao;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UtilisateurServiceImpl implements UtilisateurService {
+
 
     private UtilisateurDao utilisateurDao;
 
@@ -39,4 +41,14 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     public void deleteUtilisateur(Utilisateur utilisateur) {
         utilisateurDao.delete(utilisateur);
     }
+
+
+
+    @Override
+    public Utilisateur loginUtilisateur(String email, String motDePasse) {
+        return null;
+    }
+
+
+
 }
