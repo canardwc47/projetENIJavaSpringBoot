@@ -62,7 +62,18 @@ public class UtilisateurDaoSQLImpl implements UtilisateurDao {
 
     @Override
     public void update(Utilisateur utilisateur) {
-        jdbcTemplate.update(UPDATE,utilisateur.getPseudo(), utilisateur.getNom(), utilisateur.getPrenom(), utilisateur.getEmail(), utilisateur.getTelephone(), utilisateur.getRue(), utilisateur.getCodePostal(), utilisateur.getVille(), utilisateur.getMotDePasse(), utilisateur.getCredit());
+        jdbcTemplate.update(UPDATE,
+                utilisateur.getPseudo(),
+                utilisateur.getNom(),
+                utilisateur.getPrenom(),
+                utilisateur.getEmail(),
+                utilisateur.getTelephone(),
+                utilisateur.getRue(),
+                utilisateur.getCodePostal(),
+                utilisateur.getVille(),
+                utilisateur.getMotDePasse(),
+                utilisateur.getCredit(),
+                utilisateur.getEmail());
     }
 
 
